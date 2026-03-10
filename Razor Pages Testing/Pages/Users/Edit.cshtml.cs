@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Razor_Pages_Testing.Data;
-using Razor_Pages_Testing.Models;
+using Razor_Pages_Testing.Models.Users;
 using System.ComponentModel.DataAnnotations;
 
 namespace Razor_Pages_Testing.Pages.Users
@@ -11,20 +11,10 @@ namespace Razor_Pages_Testing.Pages.Users
     [Authorize]
     public class EditModel(UserManager<ApplicationUser> userManager) : PageModel
     {
-        public class Input
+        public class Input : UserFormBase
         {
             [Required]
             public string Id { get; set; } = string.Empty;
-
-            [Required]
-            public string UserName { get; set; } = string.Empty;
-
-            [Required]
-            [EmailAddress]
-            public string Email { get; set; } = string.Empty;
-
-            [Required]
-            public int Age { get; set; }
         }
 
         [BindProperty]

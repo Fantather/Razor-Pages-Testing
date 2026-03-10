@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Razor_Pages_Testing.Models;
+using Razor_Pages_Testing.Models.Users;
 
 namespace Razor_Pages_Testing.Data
 {

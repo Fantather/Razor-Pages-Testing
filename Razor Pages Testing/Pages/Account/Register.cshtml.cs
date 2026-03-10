@@ -3,28 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Razor_Pages_Testing.Data;
-using Razor_Pages_Testing.Models;
+using Razor_Pages_Testing.Models.Users;
 using System.ComponentModel.DataAnnotations;
 
 namespace Razor_Pages_Testing.Pages.Account
 {
     public class RegisterModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager) : PageModel
     {
-        public class RegisterInputModel
+        public class RegisterInputModel : UserFormBase
         {
-            [Required(ErrorMessage = "Имя пользователя обязательно")]
-            [Display(Name = "Имя пользователя")]
-            public string UserName { get; set; } = string.Empty;
-
-            [Required(ErrorMessage = "Почта обязательна")]
-            [EmailAddress(ErrorMessage = "Неверный формат электронной почты")]
-            [Display(Name = "Электронная почта")]
-            public string Email { get; set; } = string.Empty;
-
-            [Required(ErrorMessage = "Возраст обязателен")]
-            [Display(Name = "Возраст")]
-            public int Age { get; set; }
-
             [Required(ErrorMessage = "Пароль обязателен")]
             [DataType(DataType.Password)]
             [Display(Name = "Пароль")]

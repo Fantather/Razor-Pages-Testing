@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Razor_Pages_Testing.Data;
-using Razor_Pages_Testing.Models;
+using Razor_Pages_Testing.Models.Users;
 
 namespace Razor_Pages_Testing.Pages.Users
 {

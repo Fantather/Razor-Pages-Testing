@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Razor_Pages_Testing.Models;
+using Razor_Pages_Testing.Models.Users;
 using System.ComponentModel.DataAnnotations;
 
 namespace Razor_Pages_Testing.Pages.Account

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Razor_Pages_Testing.Data;
-using Razor_Pages_Testing.Models;
+using Razor_Pages_Testing.Models.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 

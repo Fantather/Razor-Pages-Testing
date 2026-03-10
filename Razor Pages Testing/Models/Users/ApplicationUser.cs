@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Razor_Pages_Testing.Models
+namespace Razor_Pages_Testing.Models.Users
 {
     public class ApplicationUser : IdentityUser
     {

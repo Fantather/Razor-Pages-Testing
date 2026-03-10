@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Razor_Pages_Testing.Models;
+using Razor_Pages_Testing.Models.Users;
 
 namespace Razor_Pages_Testing.Pages.Account
 {
