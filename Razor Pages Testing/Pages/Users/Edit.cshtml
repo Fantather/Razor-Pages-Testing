@@ -1,0 +1,42 @@
+﻿@* Говорим, что эта страница ожидает параметр Id в Url *@
+@page "{id}"
+@model Razor_Pages_Testing.Pages.Users.EditModel
+
+<h1>Редактирование пользователя</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <input type="hidden" asp-for="UserUpdate.Id" />
+
+            <div class="mb-3">
+                <label asp-for="UserUpdate.UserName" class="form-label">Имя пользователя</label>
+                <input asp-for="UserUpdate.UserName" class="form-control" />
+                <span asp-validation-for="UserUpdate.UserName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="UserUpdate.Email" class="form-label">Почта</label>
+                <input asp-for="UserUpdate.Email" class="form-control" />
+                <span asp-validation-for="UserUpdate.Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="UserUpdate.Age" class="form-label">Возраст</label>
+                <input asp-for="UserUpdate.Age" class="form-control" />
+                <span asp-validation-for="UserUpdate.Age" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success">Сохранить</button>
+                <a asp-page="./Index" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
