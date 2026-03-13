@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Razor_Pages_Testing.Models.Users;
+using Razor_Pages_Testing.Models.UserTasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Razor_Pages_Testing.Data
 {
@@ -9,8 +11,9 @@ namespace Razor_Pages_Testing.Data
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
 
-            // 1. Создание ролей
+            // Создание ролей
             string[] roleNames = { "Admin", "User" };
             foreach (var roleName in roleNames)
             {
@@ -20,7 +23,7 @@ namespace Razor_Pages_Testing.Data
                 }
             }
 
-            // 2. Создание пользователя-администратора
+            // Создание пользователя-администратора
             if (await userManager.FindByEmailAsync("admin@test.com") == null)
             {
                 var adminUser = new ApplicationUser
@@ -37,7 +40,7 @@ namespace Razor_Pages_Testing.Data
                 }
             }
 
-            // 3. Создание базового пользователя для входа
+            // Создание базового пользователя для входа
             if (await userManager.FindByEmailAsync("user1@test.com") == null)
             {
                 var normalUser = new ApplicationUser
@@ -54,7 +57,7 @@ namespace Razor_Pages_Testing.Data
                 }
             }
 
-            // 4. Создание дополнительных пользователей для массовки в таблице
+            // Создание дополнительных пользователей для массовки в таблице
             for (int i = 2; i <= 3; i++)
             {
                 string email = $"user{i}@test.com";
@@ -74,6 +77,26 @@ namespace Razor_Pages_Testing.Data
                     }
                 }
             }
+
+            // Создание задач
+            for (int i = 1; i <= 5; i++)
+            {
+                string taskTitle = $"Task number {i}";
+
+                if (await dbContext.UserTasks.FirstOrDefaultAsync(t => t.Title == taskTitle) == null)
+                {
+                    var newTask = new UserTask
+                    {
+                        Title = taskTitle,
+                        Description = taskTitle,
+                        IsDone = false
+                    };
+
+                    dbContext.UserTasks.Add(newTask);
+                }
+            }
+
+            await dbContext.SaveChangesAsync();
         }
     }
 }

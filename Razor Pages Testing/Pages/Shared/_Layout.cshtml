@@ -29,6 +29,12 @@
                                 <form asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" class="d-inline">
                                     <button type="submit" class="btn btn-link nav-link text-dark border-0 bg-transparent">Выйти</button>
                                 </form>
+                                <form asp-page="/Users/Index" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-link nav-link text-dark border-0 bg-transparent">Пользователи</button>
+                                </form>
+                                <form asp-page="/Tasks/Index" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-link nav-link text-dark border-0 bg-transparent">Задачи</button>
+                                </form>
                             </li>
                         }
                         else

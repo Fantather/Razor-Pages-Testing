@@ -1,0 +1,36 @@
+﻿@page
+@model Razor_Pages_Testing.Pages.Tasks.IndexModel
+
+<a asp-page="Create">Создать новую задачу</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.UserTasks.FirstOrDefault()!.Id)</th>
+            <th>@Html.DisplayNameFor(m => m.UserTasks.FirstOrDefault()!.Title)</th>
+            <th>@Html.DisplayNameFor(m => m.UserTasks.FirstOrDefault()!.Description)</th>
+            <th>@Html.DisplayNameFor(m => m.UserTasks.FirstOrDefault()!.IsDone)</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var task in Model.UserTasks)
+        {
+            <tr>
+                <td>@task.Id</td>
+                <td>@task.Title</td>
+                <td>@task.Description</td>
+                <td>
+                    <input type="checkbox" checked="@task.IsDone" disabled />
+                </td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@task.Id">Изменить</a>
+                    
+                    <form asp-page-handler="Delete" asp-route-id="@task.Id" method="post">
+                        <button type="submit">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
