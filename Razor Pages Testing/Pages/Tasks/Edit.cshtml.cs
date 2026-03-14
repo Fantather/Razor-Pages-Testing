@@ -1,12 +1,15 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Razor_Pages_Testing.Data;
+using Razor_Pages_Testing.Models.Users;
 using Razor_Pages_Testing.Models.UserTasks;
 
 namespace Razor_Pages_Testing.Pages.Tasks
 {
-    public class EditModel(ApplicationDbContext dbContext) : PageModel
+    public class EditModel(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IAuthorizationService authorizationService) : PageModel
     {
         public class UserTaskInputModel : InputUserTaskBase
         {
@@ -41,7 +44,7 @@ namespace Razor_Pages_Testing.Pages.Tasks
 
         public async Task<IActionResult> OnPostAsync(int id)
         {
-            if(ModelState.IsValid)
+            if(!ModelState.IsValid)
             {
                 return Page();
             }
@@ -52,12 +55,23 @@ namespace Razor_Pages_Testing.Pages.Tasks
                 return NotFound();
             }
 
-            task.Title = InputModel.Title;
-            task.Description = InputModel.Description;
-            task.IsDone = InputModel.IsDone;
-            await dbContext.SaveChangesAsync();
+            ApplicationUser? owner = await userManager.FindByIdAsync(task.OwnerId);
 
-            return RedirectToPage("Index");
+
+            var authorizationResult = await authorizationService.AuthorizeAsync(User, task, "EditUserTaskPolicy");
+
+
+            if (authorizationResult.Succeeded)
+            {
+                task.Title = InputModel.Title;
+                task.Description = InputModel.Description;
+                task.IsDone = InputModel.IsDone;
+                await dbContext.SaveChangesAsync();
+
+                return RedirectToPage("Index");
+            }
+
+            return Forbid();
         }
     }
 }

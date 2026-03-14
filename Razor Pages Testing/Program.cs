@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Razor_Pages_Testing.Authorization;
 using Razor_Pages_Testing.Data;
 using Razor_Pages_Testing.Models.Users;
 
@@ -24,6 +25,17 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AddPageRoute("/Users/Index", ""); // Это мне было лень делать главную страницу, поэтому я сделал главной другую страницу программно
+
+    options.Conventions.AuthorizeFolder("/");
+    options.Conventions.AuthorizeFolder("/User", "RequiresAdminRole");
+    options.Conventions.AllowAnonymousToPage("/Account/Login");
+    options.Conventions.AllowAnonymousToPage("/Account/Register");
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("EditUserTaskPolicy", policy => policy.Requirements.Add(new UserTaskOwnerRequirement()));
 });
 
 var app = builder.Build();

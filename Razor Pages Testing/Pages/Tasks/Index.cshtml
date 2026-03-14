@@ -1,9 +1,9 @@
 ﻿@page
 @model Razor_Pages_Testing.Pages.Tasks.IndexModel
 
-<a asp-page="Create">Создать новую задачу</a>
+<a asp-page="Create" class="btn btn-primary">Создать новую задачу</a>
 
-<table>
+<table class="table table-striped table-hover table-bordered align-middle">
     <thead>
         <tr>
             <th>@Html.DisplayNameFor(m => m.UserTasks.FirstOrDefault()!.Id)</th>
@@ -24,10 +24,10 @@
                     <input type="checkbox" checked="@task.IsDone" disabled />
                 </td>
                 <td>
-                    <a asp-page="Edit" asp-route-id="@task.Id">Изменить</a>
+                    <a asp-page="Edit" asp-route-id="@task.Id" class="btn btn-primary">Изменить</a>
                     
                     <form asp-page-handler="Delete" asp-route-id="@task.Id" method="post">
-                        <button type="submit">Удалить</button>
+                        <button type="submit" class="btn btn-danger">Удалить</button>
                     </form>
                 </td>
             </tr>
