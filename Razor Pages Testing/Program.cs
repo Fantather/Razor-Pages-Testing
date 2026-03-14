@@ -28,7 +28,7 @@ builder.Services.AddRazorPages(options =>
     options.Conventions.AddPageRoute("/Users/Index", ""); // Это мне было лень делать главную страницу, поэтому я сделал главной другую страницу программно
 
     options.Conventions.AuthorizeFolder("/");
-    options.Conventions.AuthorizeFolder("/User", "RequiresAdminRole");
+    options.Conventions.AuthorizeFolder("/Users", "RequiresAdminRole");
     options.Conventions.AllowAnonymousToPage("/Account/Login");
     options.Conventions.AllowAnonymousToPage("/Account/Register");
 });
