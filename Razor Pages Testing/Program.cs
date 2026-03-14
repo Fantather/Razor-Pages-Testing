@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Razor_Pages_Testing.Authorization;
@@ -37,6 +38,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
     options.AddPolicy("EditUserTaskPolicy", policy => policy.Requirements.Add(new UserTaskOwnerRequirement()));
 });
+builder.Services.AddSingleton<IAuthorizationHandler, UserTaskOwnerHandler>();
 
 var app = builder.Build();
 

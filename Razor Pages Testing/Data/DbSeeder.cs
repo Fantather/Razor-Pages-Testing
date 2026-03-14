@@ -57,46 +57,34 @@ namespace Razor_Pages_Testing.Data
                 }
             }
 
-            // Создание дополнительных пользователей для массовки в таблице
-            for (int i = 2; i <= 3; i++)
-            {
-                string email = $"user{i}@test.com";
-                if (await userManager.FindByEmailAsync(email) == null)
-                {
-                    var extraUser = new ApplicationUser
-                    {
-                        UserName = email,
-                        Email = email,
-                        Age = 20 + i
-                    };
+            // Получаем пользователей из базы данных для извлечения их идентификаторов
+            var admin = await userManager.FindByEmailAsync("admin@test.com");
+            var user = await userManager.FindByEmailAsync("user1@test.com");
 
-                    var result = await userManager.CreateAsync(extraUser, "Qwerty_123!");
-                    if (result.Succeeded)
+            if (admin != null && user != null)
+            {
+                // Создание задач с привязкой к конкретному пользователю
+                for (int i = 1; i <= 5; i++)
+                {
+                    string taskTitle = $"Task number {i}";
+
+                    if (await dbContext.UserTasks.FirstOrDefaultAsync(t => t.Title == taskTitle) == null)
                     {
-                        await userManager.AddToRoleAsync(extraUser, "User");
+                        var newTask = new UserTask
+                        {
+                            Title = taskTitle,
+                            Description = taskTitle,
+                            IsDone = false,
+                            // Первые 3 задачи отдаем админу, остальные 2 отдаем обычному пользователю
+                            OwnerId = i <= 3 ? admin.Id : user.Id
+                        };
+
+                        dbContext.UserTasks.Add(newTask);
                     }
                 }
+
+                await dbContext.SaveChangesAsync();
             }
-
-            // Создание задач
-            for (int i = 1; i <= 5; i++)
-            {
-                string taskTitle = $"Task number {i}";
-
-                if (await dbContext.UserTasks.FirstOrDefaultAsync(t => t.Title == taskTitle) == null)
-                {
-                    var newTask = new UserTask
-                    {
-                        Title = taskTitle,
-                        Description = taskTitle,
-                        IsDone = false
-                    };
-
-                    dbContext.UserTasks.Add(newTask);
-                }
-            }
-
-            await dbContext.SaveChangesAsync();
         }
     }
 }

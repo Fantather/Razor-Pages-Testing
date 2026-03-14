@@ -8,7 +8,7 @@ namespace Razor_Pages_Testing.Authorization
     {
     }
 
-    public class ActicleAuthorHandler : AuthorizationHandler<UserTaskOwnerRequirement, UserTask>
+    public class UserTaskOwnerHandler : AuthorizationHandler<UserTaskOwnerRequirement, UserTask>
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, UserTaskOwnerRequirement requirement, UserTask resource)
         {
